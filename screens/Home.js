@@ -5,6 +5,7 @@ import { UserIcon, ChevronDownIcon, MagnifyingGlassIcon, AdjustmentsVerticalIcon
 
 import SafeViewAndroid from "./components/SafeViewAndroid";
 import Categories from './components/Categories';
+import FeaturedRow from './components/FeaturedRow';
 
 function Home() {
 
@@ -46,13 +47,33 @@ function Home() {
             </View>
 
             {/* Body */}
-            <ScrollView>
-                {/* Categories */}
+            <ScrollView
+                className="bg-gray-100"
+                contentContainerStyle={{ paddingBottom: 100 }}
+            >
+
                 <Categories />
-                {/* Featured rows */}
+
+                <FeaturedRow
+                    id="1"
+                    title="Featured"
+                    description="Paid placement from our partners"
+                />
+
+                {/* <FeaturedRow
+                    id="2"
+                    title="Tasty Discounts"
+                    description="Everyone's been enjoying this tasty Discounts"
+                />
+                <FeaturedRow
+                    id="3"
+                    title="Offers near you !"
+                    description="Why not suppot your local restaurant tonight ! "
+                /> */}
+
             </ScrollView>
 
-        </ SafeAreaView>
+        </ SafeAreaView >
     );
 }
 
