@@ -3,9 +3,9 @@ import { useNavigation } from '@react-navigation/native';
 import { View, Text, Image, SafeAreaView, TextInput, ScrollView } from 'react-native';
 import { UserIcon, ChevronDownIcon, MagnifyingGlassIcon, AdjustmentsVerticalIcon } from 'react-native-heroicons/outline';
 
-import SafeViewAndroid from "./components/SafeViewAndroid";
-import Categories from './components/Categories';
-import FeaturedRow from './components/FeaturedRow';
+import SafeViewAndroid from "../components/SafeViewAndroid";
+import Categories from '../components/Categories';
+import FeaturedRow from '../components/FeaturedRow';
 
 function Home() {
 
@@ -60,7 +60,7 @@ function Home() {
                     description="Paid placement from our partners"
                 />
 
-                {/* <FeaturedRow
+                <FeaturedRow
                     id="2"
                     title="Tasty Discounts"
                     description="Everyone's been enjoying this tasty Discounts"
@@ -69,7 +69,7 @@ function Home() {
                     id="3"
                     title="Offers near you !"
                     description="Why not suppot your local restaurant tonight ! "
-                /> */}
+                />
 
             </ScrollView>
 

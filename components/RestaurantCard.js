@@ -5,7 +5,7 @@ import { MapPinIcon } from 'react-native-heroicons/outline';
 
 const RastaurantCard = ({ id, imgUrl, title, rating, genre, address, short_description, dishes, long, lat }) => {
     return (
-        <TouchableOpacity className="bg-white mr-3 shadow">
+        <TouchableOpacity className="bg-white mr-3 shadow rounded">
             <Image
                 source={{ uri: imgUrl }}
                 className="h-36 w-64 rounded-sm"
