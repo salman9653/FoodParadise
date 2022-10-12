@@ -1,10 +1,31 @@
 import { View, Text, ScrollView } from 'react-native'
-import React from 'react'
+import { useState, useEffect } from 'react';
 import { ArrowRightIcon } from 'react-native-heroicons/outline'
 
 import RestaurantCard from './RestaurantCard'
+import sanityClient from '../sanity';
 
 const FeaturedRow = ({ id, title, description }) => {
+
+    const [restaurants, setRestaurants] = useState([]);
+
+    useEffect(() => {
+        sanityClient.fetch(`
+        *[_type=="featured" && _id == $id]{
+            ...,
+            restaurants[]->{
+              ...,
+              dishes[]->,
+                type->{
+                    name
+                }
+            },
+          }[0]
+        `, { id }).then(data => {
+            setRestaurants(data?.restaurants);
+        });
+    }, [])
+
     return (
         <View>
             <View className="mt-4 flex-row justify-between px-4" >
@@ -18,42 +39,23 @@ const FeaturedRow = ({ id, title, description }) => {
                 showsHorizontalScrollIndicator={false}
                 className="pt-4"
             >
-                <RestaurantCard
-                    id={1}
-                    imgUrl="https://images.pexels.com/photos/2074108/pexels-photo-2074108.jpeg"
-                    title="Wow Cakes!"
-                    rating={4.5}
-                    genre="Desert"
-                    address="123 Main St."
-                    short_description="This is a test description"
-                    dishes={[]}
-                    long={77.2276224}
-                    lat={28.622848}
-                />
-                <RestaurantCard
-                    id={2}
-                    imgUrl="https://images.pexels.com/photos/90893/pexels-photo-90893.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-                    title="Restaraunt Name"
-                    rating={4.3}
-                    genre="Italian"
-                    address="123 Side St."
-                    short_description="This is a test description"
-                    dishes={[]}
-                    long={77.2276224}
-                    lat={28.622848}
-                />
-                <RestaurantCard
-                    id={2}
-                    imgUrl="https://images.pexels.com/photos/2955819/pexels-photo-2955819.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-                    title="Restaraunt Name"
-                    rating={4.7}
-                    genre="Indian"
-                    address="Main Street Downtown"
-                    short_description="This is a test description"
-                    dishes={[]}
-                    long={77.2276224}
-                    lat={28.622848}
-                />
+
+                {restaurants?.map(restaurant => (
+                    <RestaurantCard
+                        key={restaurant._id}
+                        id={restaurant._id}
+                        imgUrl={restaurant.image}
+                        title={restaurant.name}
+                        rating={restaurant.rating}
+                        genre={restaurant.type?.name}
+                        address={restaurant.address}
+                        short_description={restaurant.short_description}
+                        dishes={restaurant.dishes}
+                        long={restaurant.long}
+                        lat={restaurant.lat}
+                    />
+                ))}
+
             </ScrollView>
         </View>
     )
