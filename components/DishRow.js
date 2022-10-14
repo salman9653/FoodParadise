@@ -1,20 +1,24 @@
 import { View, Text, Image, TouchableOpacity } from 'react-native';
 import { useState } from 'react'
-import { MinusCircleIcon, PlusCircleIcon } from 'react-native-heroicons/solid';
-import { useDispatch, useSelector } from 'react-redux';
+import { MinusCircleIcon, PlusCircleIcon, ReceiptRefundIcon } from 'react-native-heroicons/solid';
+import { useDispatch, removeFromBasket, useSelector } from 'react-redux';
 
-import { addToBasket, selectBasketItems } from '../features/basketSlice';
+import { addToBasket, selectBasketItemsWithId } from '../features/basketSlice';
 import { urlFor } from '../sanity';
 
 const DishRow = ({ id, name, image, description, price }) => {
 
     const [isPressed, setIsPressed] = useState(false);
-    const items = useSelector(selectBasketItems)
-
+    const items = useSelector(state => selectBasketItemsWithId(state, id));
     const dispatch = useDispatch()
 
     const addItemsToBasket = () => {
         dispatch(addToBasket({ id, name, description, price, image }));
+    }
+
+    const removeItemsFromBasket = () => {
+        if (items.length <= 0) return;
+        dispatch(removeFromBasket({ id }));
     }
 
     return (
@@ -43,18 +47,16 @@ const DishRow = ({ id, name, image, description, price }) => {
                 isPressed &&
                 <View className="bg-white px-4">
                     <View className="flex-row items-center space-x-2 pb-3">
-                        <TouchableOpacity>
+                        <TouchableOpacity onPress={removeItemsFromBasket} disabled={!items.length}>
                             <MinusCircleIcon
-                                // color={items.length > 0 ? "#0CB" : "gray"}
-                                color="#0CB"
+                                color={items.length > 0 ? "#0CB" : "gray"}
                                 size={40}
                             />
                         </TouchableOpacity>
                         <Text>{items.length}</Text>
                         <TouchableOpacity onPress={addItemsToBasket}>
                             <PlusCircleIcon
-                                // color={items.length > 0 ? "#0CB" : "gray"}
-                                color="#0CB"
+                                color={items.length > 0 ? "#0CB" : "gray"}
                                 size={40}
                             />
                         </TouchableOpacity>
@@ -65,4 +67,4 @@ const DishRow = ({ id, name, image, description, price }) => {
     )
 }
 
-export default DishRow
+export default DishRow;
