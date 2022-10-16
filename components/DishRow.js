@@ -1,9 +1,9 @@
 import { View, Text, Image, TouchableOpacity } from 'react-native';
 import { useState } from 'react'
 import { MinusCircleIcon, PlusCircleIcon, ReceiptRefundIcon } from 'react-native-heroicons/solid';
-import { useDispatch, removeFromBasket, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { addToBasket, selectBasketItemsWithId } from '../features/basketSlice';
+import { addToBasket, removeFromBasket, selectBasketItemsWithId } from '../features/basketSlice';
 import { urlFor } from '../sanity';
 
 const DishRow = ({ id, name, image, description, price }) => {

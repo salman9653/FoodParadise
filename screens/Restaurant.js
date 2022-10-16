@@ -62,6 +62,7 @@ const Restaurant = () => {
                         <ChevronRightIcon color="#0CB" />
                     </TouchableOpacity>
                 </View>
+
                 <View className="pb-36">
                     <Text className="px-4 pt-6 mb-3 font-bold text-xl">
                         Menu
@@ -69,8 +70,8 @@ const Restaurant = () => {
 
                     {dishes.map(dish => (
                         <DishRow
-                            key={dish.id}
-                            id={dish.id}
+                            key={dish._id}
+                            id={dish._id}
                             name={dish.name}
                             description={dish.short_description}
                             price={dish.price}
