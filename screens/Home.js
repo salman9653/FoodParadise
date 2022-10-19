@@ -80,7 +80,7 @@ function Home() {
 
             </ScrollView>
 
-        </ SafeAreaView >
+        </SafeAreaView>
     );
 }
 

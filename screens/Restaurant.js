@@ -1,9 +1,11 @@
 import { View, Text, ScrollView, Image, TouchableOpacity } from 'react-native';
-import { useLayoutEffect } from 'react';
+import { useEffect, useLayoutEffect } from 'react';
 import { useRoute, useNavigation } from '@react-navigation/native';
 import { ArrowLeftIcon, ChevronLeftIcon, ChevronRightIcon, MapPinIcon, StarIcon, } from 'react-native-heroicons/solid';
 import { QuestionMarkCircleIcon } from 'react-native-heroicons/outline';
+import { useDispatch } from 'react-redux';
 
+import { setRestaurant } from '../features/restaurantSlice'
 import { urlFor } from '../sanity';
 import DishRow from "../components/DishRow";
 import BasketIcon from '../components/BasketIcon';
@@ -11,6 +13,7 @@ import BasketIcon from '../components/BasketIcon';
 const Restaurant = () => {
 
     const navigation = useNavigation();
+    const dispatch = useDispatch()
 
     useLayoutEffect(() => {
         navigation.setOptions({
@@ -18,9 +21,11 @@ const Restaurant = () => {
         })
     }, [])
 
-    const { params: {
-        id, imgUrl, title, rating, genre, address, short_description, dishes, long, lat
-    } } = useRoute();
+    const { params: { id, imgUrl, title, rating, genre, address, short_description, dishes, long, lat } } = useRoute();
+
+    useEffect(() => {
+        dispatch(setRestaurant({ id, imgUrl, title, rating, genre, address, short_description, dishes, long, lat }))
+    }, [])
 
     return (
         <>

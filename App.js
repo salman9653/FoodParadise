@@ -6,6 +6,7 @@ import { Provider } from 'react-redux';
 import { store } from './store'
 import Home from './screens/Home';
 import Restaurant from './screens/Restaurant';
+import Basket from './screens/Basket';
 
 const Stack = createNativeStackNavigator();
 
@@ -21,6 +22,11 @@ function App() {
           <Stack.Screen
             name="Restaurant"
             component={Restaurant}
+          />
+          <Stack.Screen
+            name="Basket"
+            component={Basket}
+            options={{ presentation: "modal", headerShown: false }}
           />
         </Stack.Navigator>
       </Provider>
