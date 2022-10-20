@@ -1,11 +1,18 @@
 import { View, Text } from 'react-native'
-import React from 'react';
+import React, { useEffect } from 'react';
 import * as Animatable from 'react-native-animatable';
 import * as Progress from 'react-native-progress';
 import { useNavigation } from '@react-navigation/native';
 
 const PreparingOrder = () => {
     const navigation = useNavigation()
+
+    useEffect(() => {
+        setTimeout(() => (
+            navigation.navigate("Delivery")
+        ), 5000)
+
+    }, [])
 
     return (
         <View className="flex-1 bg-[#0CB] justify-center items-center">

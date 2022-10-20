@@ -8,6 +8,7 @@ import Home from './screens/Home';
 import Restaurant from './screens/Restaurant';
 import Basket from './screens/Basket';
 import PreparingOrder from './screens/PreparingOrder';
+import Delivery from './screens/Delivery';
 
 const Stack = createNativeStackNavigator();
 
@@ -32,6 +33,11 @@ function App() {
           <Stack.Screen
             name="PreparingOrder"
             component={PreparingOrder}
+            options={{ presentation: "fullScreenModal", headerShown: false }}
+          />
+          <Stack.Screen
+            name="Delivery"
+            component={Delivery}
             options={{ presentation: "fullScreenModal", headerShown: false }}
           />
         </Stack.Navigator>
