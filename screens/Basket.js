@@ -93,7 +93,7 @@ const Basket = () => {
                         <Text>Oder Total</Text>
                         <Text className="font-extrabold">₹ {basketTotal + (~~(basketTotal / 50))}</Text>
                     </View>
-                    <TouchableOpacity className="rounded-lg bg-[#0CB] p-4">
+                    <TouchableOpacity onPress={() => navigation.navigate('PreparingOrder')} className="rounded-lg bg-[#0CB] p-4">
                         <Text className="text-center text-white text-lg font-bold">Place Order</Text>
                     </TouchableOpacity>
                 </View>
