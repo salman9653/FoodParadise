@@ -4,6 +4,8 @@ import { useNavigation } from '@react-navigation/native'
 import { useSelector } from 'react-redux'
 import { XMarkIcon } from 'react-native-heroicons/solid'
 import * as progress from 'react-native-progress'
+import MapView, { Marker } from 'react-native-maps';
+
 
 import SafeViewAndroid from "../components/SafeViewAndroid";
 import { selectRestaurant } from '../features/restaurantSlice'
@@ -17,7 +19,7 @@ const Delivery = () => {
         <View className="bg-[#0CB] flex-1">
             <SafeAreaView style={SafeViewAndroid.AndroidSafeArea} className="50">
                 <View className="flex-row justify-between items-center p-5">
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={() => navigation.navigate('Home')}>
                         <XMarkIcon color="white" size={30} />
                     </TouchableOpacity>
                     <Text className="font-light text-white text-lg">Order Help</Text>
@@ -38,9 +40,31 @@ const Delivery = () => {
                     <Text className="mt-3 text-gray-500">
                         Your Order at {restaurant.title} is being prepared.
                     </Text>
+                    <Text>{restaurant.address}</Text>
                 </View>
-            </SafeAreaView>
 
+            </SafeAreaView>
+            <MapView
+                initialRegion={{
+                    latitude: restaurant.lat,
+                    longitude: restaurant.long,
+                    latitudeDelta: 0.005,
+                    longitudeDelta: 0.005,
+                }}
+                className="flex-1 -mt-20 z-0"
+                mapType="mutedStandard"
+            >
+                <Marker
+                    coordinate={{
+                        latitude: restaurant.lat,
+                        longitude: restaurant.long,
+                    }}
+                    title={restaurant.title}
+                    description={restaurant.short_description}
+                    identifier="origin"
+                    pinColor='#0CB'
+                />
+            </MapView>
         </View>
     )
 }
